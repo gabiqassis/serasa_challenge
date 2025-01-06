@@ -1,0 +1,17 @@
+dev\gabiqassis\serasa\service\UserService.class
+dev\gabiqassis\serasa\domain\response\UserResponse.class
+dev\gabiqassis\serasa\controller\UserController.class
+dev\gabiqassis\serasa\domain\entity\BaseEntity.class
+dev\gabiqassis\serasa\UserApplication.class
+dev\gabiqassis\serasa\domain\util\ValidationCpf.class
+dev\gabiqassis\serasa\domain\mapper\UserMapper.class
+dev\gabiqassis\serasa\controller\impl\UserControllerImpl.class
+dev\gabiqassis\serasa\service\impl\UserServiceImpl.class
+dev\gabiqassis\serasa\domain\request\UserUpdateRequest.class
+dev\gabiqassis\serasa\domain\entity\User.class
+dev\gabiqassis\serasa\config\web\WebConfig.class
+dev\gabiqassis\serasa\domain\request\UserCreaterRequest.class
+dev\gabiqassis\serasa\domain\mapper\UserMapperImpl.class
+dev\gabiqassis\serasa\repository\UserRepository.class
+dev\gabiqassis\serasa\constants\PathConstants.class
+dev\gabiqassis\serasa\constants\OpenApiConfigConstants.class
