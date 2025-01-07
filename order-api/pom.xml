@@ -12,7 +12,7 @@
 
     <groupId>dev.gabiqassis</groupId>
     <artifactId>order-api</artifactId>
-    <version>0.0.3</version>
+    <version>1.0.0</version>
     <name>Order API</name>
     <description>Microsserviço para cadastro de pedidos</description>
 
