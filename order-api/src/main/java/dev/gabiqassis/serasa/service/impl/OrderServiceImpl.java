@@ -122,9 +122,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderResponse> findByUserId(Long userId) {
         logger.info("Buscando pedidos para o usuário com ID {}", userId);
-        hasUser(userId);
+        List<Order> orders = orderRepository.findByUserId(String.valueOf(userId));
 
-        return null;
+        return orders.stream().map(orderMapper::map).toList();
     }
 
     private void calculateTotal(Order order) {

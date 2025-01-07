@@ -7,7 +7,9 @@ import dev.gabiqassis.serasa.domain.response.OrderResponse;
 import dev.gabiqassis.serasa.domain.response.OrderUpdateResponse;
 import dev.gabiqassis.serasa.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -42,13 +44,17 @@ public class OrderControllerImpl implements OrderController {
     }
 
     @Override
-    public ResponseEntity<Void> deleteById(Long id) {
-        orderService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<List<OrderResponse>> findByUserId(Long userId) {
+        return ResponseEntity.ok(orderService.findByUserId(userId));
     }
 
     @Override
-    public ResponseEntity<List<OrderResponse>> findByUserId(Long userId) {
-        return ResponseEntity.ok(orderService.findByUserId(userId));
+    public ResponseEntity<String> deleteById(Long id) {
+        try {
+            orderService.deleteById(id);
+            return new ResponseEntity<>("Pedido deletado com sucesso", HttpStatus.OK); }
+        catch (Exception e) {
+            return new ResponseEntity<>("Erro ao deletar o pedido: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
