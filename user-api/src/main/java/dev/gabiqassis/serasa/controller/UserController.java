@@ -204,5 +204,5 @@ public interface UserController {
                                     schema = @Schema(implementation = ProblemDetail.class)))
             })
     @DeleteMapping(USER_BY_ID)
-    ResponseEntity<Void> deleteById(@PathVariable Long id);
+    ResponseEntity<String> deleteById(@PathVariable Long id);
 }

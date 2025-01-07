@@ -6,7 +6,9 @@ import dev.gabiqassis.serasa.domain.request.UserUpdateRequest;
 import dev.gabiqassis.serasa.domain.response.UserResponse;
 import dev.gabiqassis.serasa.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -40,8 +42,12 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public ResponseEntity<Void> deleteById(Long id) {
-        userService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> deleteById(Long id) {
+        try {
+            userService.deleteById(id);
+            return new ResponseEntity<>("Usuário deletado com sucesso", HttpStatus.OK); }
+        catch (Exception e) {
+            return new ResponseEntity<>("Erro ao deletar o usuário: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

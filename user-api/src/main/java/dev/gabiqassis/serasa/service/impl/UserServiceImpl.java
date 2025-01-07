@@ -70,11 +70,6 @@ public class UserServiceImpl implements UserService {
         userRepository.findById(id)
                 .ifPresentOrElse(
                         user -> {
-                            if (hasOrder(user)) {
-                                logger.error("Não foi possível deletar o usuário com ID {} porque ele tem pedidos associados", id);
-                                throw new IllegalStateException("Não é possível deletar um usuário com pedidos");
-                            }
-
                             logger.debug("Usuário encontrado para remoção");
                             userRepository.delete(user);
                             logger.info("Usuário com ID {} deletado com sucesso", id);
