@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-01-07T08:35:15-0300",
+    date = "2025-01-07T13:19:59-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.3 (Oracle Corporation)"
 )
 @Component
@@ -25,8 +25,8 @@ public class UserMapperImpl implements UserMapper {
 
         User user = new User();
 
-        user.setName( userCreateRequest.getName() );
         user.setCpf( userCreateRequest.getCpf() );
+        user.setName( userCreateRequest.getName() );
         user.setEmail( userCreateRequest.getEmail() );
         user.setPhoneNumber( userCreateRequest.getPhoneNumber() );
 
@@ -77,8 +77,8 @@ public class UserMapperImpl implements UserMapper {
             return;
         }
 
-        user.setName( userUpdateRequest.getName() );
         user.setCpf( userUpdateRequest.getCpf() );
+        user.setName( userUpdateRequest.getName() );
         user.setEmail( userUpdateRequest.getEmail() );
         user.setPhoneNumber( userUpdateRequest.getPhoneNumber() );
     }

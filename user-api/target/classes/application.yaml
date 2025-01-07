@@ -38,3 +38,6 @@ springdoc:
 openapi:
   servers:
     urls: http://localhost:8082, http://127.0.0.1:${server.port}
+
+order-service:
+  url: http://localhost:8080/api/v1/order/user

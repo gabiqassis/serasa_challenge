@@ -1,5 +1,6 @@
 package dev.gabiqassis.serasa.service.impl;
 
+import dev.gabiqassis.serasa.client.OrderHttpClient;
 import dev.gabiqassis.serasa.domain.entity.User;
 import dev.gabiqassis.serasa.domain.mapper.UserMapper;
 import dev.gabiqassis.serasa.domain.request.UserCreaterRequest;
@@ -12,9 +13,11 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -23,7 +26,12 @@ public class UserServiceImpl implements UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private OrderHttpClient httpClient;
+
     private final UserMapper userMapper;
 
     @Transactional
@@ -70,9 +78,11 @@ public class UserServiceImpl implements UserService {
         userRepository.findById(id)
                 .ifPresentOrElse(
                         user -> {
-                            logger.debug("Usuário encontrado para remoção");
-                            userRepository.delete(user);
-                            logger.info("Usuário com ID {} deletado com sucesso", id);
+                            if (hasOrder(id)) {
+                                logger.error("O usuário com ID {} possui pedidos e não pode ser excluído", id);
+                                throw new IllegalStateException("O usuário possui pedidos e não pode ser excluído");
+                            }
+                            processUserDeletion(user, id);
                         },
                         () -> {
                             logger.error("Usuário com ID {} não encontrado para deleção", id);
@@ -121,7 +131,16 @@ public class UserServiceImpl implements UserService {
                 .toList();
     }
 
-    private boolean hasOrder(User user) {
-        return false;
+    private void processUserDeletion(User user, Long id) {
+        logger.debug("Usuário encontrado para remoção");
+        userRepository.delete(user);
+        logger.info("Usuário com ID {} deletado com sucesso", id);
     }
+
+    private boolean hasOrder(Long id){
+
+        return httpClient.hasOrders(String.valueOf(id));
+    }
+
 }
+

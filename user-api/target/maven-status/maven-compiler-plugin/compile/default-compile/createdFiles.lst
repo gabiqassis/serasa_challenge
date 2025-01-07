@@ -6,6 +6,7 @@ dev\gabiqassis\serasa\domain\util\Validation.class
 dev\gabiqassis\serasa\UserApplication.class
 dev\gabiqassis\serasa\domain\mapper\UserMapper.class
 dev\gabiqassis\serasa\controller\impl\UserControllerImpl.class
+dev\gabiqassis\serasa\model\Order.class
 dev\gabiqassis\serasa\service\impl\UserServiceImpl.class
 dev\gabiqassis\serasa\domain\request\UserUpdateRequest.class
 dev\gabiqassis\serasa\domain\entity\User.class
