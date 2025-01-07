@@ -4,13 +4,14 @@ import dev.gabiqassis.serasa.domain.entity.User;
 import dev.gabiqassis.serasa.domain.request.UserCreaterRequest;
 import dev.gabiqassis.serasa.domain.request.UserUpdateRequest;
 import dev.gabiqassis.serasa.domain.response.UserResponse;
+import dev.gabiqassis.serasa.domain.response.UserUpdateResponse;
 import java.time.LocalDateTime;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-20T18:57:46-0300",
+    date = "2025-01-07T02:50:37-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.1 (Oracle Corporation)"
 )
 @Component
@@ -24,10 +25,10 @@ public class UserMapperImpl implements UserMapper {
 
         User user = new User();
 
-        user.setName( userCreateRequest.name() );
-        user.setCpf( userCreateRequest.cpf() );
-        user.setEmail( userCreateRequest.email() );
-        user.setPhoneNumber( userCreateRequest.phoneNumber() );
+        user.setName( userCreateRequest.getName() );
+        user.setCpf( userCreateRequest.getCpf() );
+        user.setEmail( userCreateRequest.getEmail() );
+        user.setPhoneNumber( userCreateRequest.getPhoneNumber() );
 
         return user;
     }
@@ -57,6 +58,17 @@ public class UserMapperImpl implements UserMapper {
         UserResponse userResponse = new UserResponse( createdAt, updatedAt, id, name, cpf, email, phoneNumber );
 
         return userResponse;
+    }
+
+    @Override
+    public UserUpdateResponse mapToUpdate(User order) {
+        if ( order == null ) {
+            return null;
+        }
+
+        UserUpdateResponse userUpdateResponse = new UserUpdateResponse();
+
+        return userUpdateResponse;
     }
 
     @Override

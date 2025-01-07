@@ -1,7 +1,5 @@
 server:
-  port: 8084
-  servlet:
-    context-path: /
+  port: 8082
 
 spring:
   datasource:
@@ -39,9 +37,4 @@ springdoc:
 
 openapi:
   servers:
-    urls: http://localhost:${server.port}${server.servlet.context-path}, http://127.0.0.1:${server.port}${server.servlet.context-path}
-
-#logging:
-#  level:
-#    root: INFO
-#    org.springframework: DEBUG
+    urls: http://localhost:8082, http://127.0.0.1:${server.port}
