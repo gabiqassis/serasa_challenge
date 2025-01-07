@@ -12,7 +12,7 @@
 
     <groupId>dev.gabiqassis</groupId>
     <artifactId>order-api</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <name>Order API</name>
     <description>Microsserviço para cadastro de pedidos</description>
 
@@ -89,6 +89,12 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
         </dependency>
     </dependencies>
 

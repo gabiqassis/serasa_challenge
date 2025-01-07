@@ -242,6 +242,6 @@ public interface OrderController {
                                     schema = @Schema(implementation = ProblemDetail.class)))
             })
     @DeleteMapping(ORDER_BY_ID)
-    ResponseEntity<Void> deleteById(@PathVariable Long id);
+    ResponseEntity<String> deleteById(@PathVariable Long id);
 }
 
