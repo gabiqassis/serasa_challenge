@@ -6,6 +6,7 @@ dev\gabiqassis\serasa\controller\OrderController.class
 dev\gabiqassis\serasa\domain\entity\BaseEntity.class
 dev\gabiqassis\serasa\repository\OrderRepository.class
 dev\gabiqassis\serasa\domain\response\OrderResponse.class
+dev\gabiqassis\serasa\client\UserHttpClient.class
 dev\gabiqassis\serasa\controller\impl\OrderControllerImpl.class
 dev\gabiqassis\serasa\domain\entity\Order.class
 dev\gabiqassis\serasa\config\openapi\OpenApiConfig.class

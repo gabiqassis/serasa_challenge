@@ -1,5 +1,6 @@
 package dev.gabiqassis.serasa.service.impl;
 
+import dev.gabiqassis.serasa.client.UserHttpClient;
 import dev.gabiqassis.serasa.domain.entity.Order;
 import dev.gabiqassis.serasa.domain.mapper.OrderMapper;
 import dev.gabiqassis.serasa.domain.request.OrderCreaterRequest;
@@ -12,6 +13,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,24 +29,34 @@ public class OrderServiceImpl implements OrderService {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
     private final OrderRepository orderRepository;
-    private final OrderMapper orderMapper;
 
+    @Autowired
+    private final UserHttpClient httpClient;
+
+    private final OrderMapper orderMapper;
 
     @Transactional
     @Override
     public OrderResponse create(OrderCreaterRequest orderCreateRequest) {
         logger.info("Criando novo pedido para o usuário com ID {}", orderCreateRequest.getUserId());
 
-        hasUser(Long.valueOf(orderCreateRequest.getUserId()));
+        try {
+            if (!hasUser(Long.valueOf(orderCreateRequest.getUserId()))) {
+                logger.error("Usuário com ID {} não encontrado", orderCreateRequest.getUserId());
+                throw new EntityNotFoundException("Usuário não encontrado");
+            }
+        } catch (Exception e) {
+            logger.error("Erro ao verificar o usuário com ID {}", orderCreateRequest.getUserId(), e);
+            throw new RuntimeException("Falha ao verificar usuário", e);
+        }
 
         Order order = orderMapper.map(orderCreateRequest);
-
         order.setUpdatedAt(null);
         calculateTotal(order);
 
         Order savedOrder = orderRepository.save(order);
 
-        logger.info("Pedido com ID {} criado com sucesso, associado ao usuário com ID {}", savedOrder.getId(),savedOrder.getUserId());
+        logger.info("Pedido com ID {} criado com sucesso, associado ao usuário com ID {}", savedOrder.getId(), savedOrder.getUserId());
         return orderMapper.map(savedOrder);
     }
 
@@ -91,20 +103,13 @@ public class OrderServiceImpl implements OrderService {
                     logger.error("Pedido com ID {} não encontrado", id);
                     return new EntityNotFoundException("Pedido não encontrado");
                 });
-
-        Long currentUserId = Long.valueOf(existingOrder.getUserId());
-        Long newUserId = Long.valueOf(orderUpdateRequest.getUserId());
-
-        if (!currentUserId.equals(newUserId)) {
-            logger.info("Mudança no userID detectada de {} para {}", currentUserId, newUserId);
-            hasUser(newUserId);
+        try {
+            processUseUpdate(id, existingOrder, orderUpdateRequest);
+          
+        } catch (Exception e) {
+            logger.error("Erro ao verificar o usuário com ID {}", orderCreateRequest.getUserId(), e);
+            throw new RuntimeException("Falha ao verificar usuário", e);
         }
-
-        existingOrder.setItemPrice(orderUpdateRequest.getItemPrice());
-        existingOrder.setItemQuantity(orderUpdateRequest.getItemQuantity());
-        calculateTotal(existingOrder);
-
-        updateUpdatedAt(existingOrder);
 
         Order updatedOrder = orderRepository.save(existingOrder);
 
@@ -123,7 +128,6 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderResponse> findByUserId(Long userId) {
         logger.info("Buscando pedidos para o usuário com ID {}", userId);
         List<Order> orders = orderRepository.findByUserId(String.valueOf(userId));
-
         return orders.stream().map(orderMapper::map).toList();
     }
 
@@ -133,16 +137,38 @@ public class OrderServiceImpl implements OrderService {
         logger.info("Cálculo total feito: {} * {} = {}", order.getItemPrice(), order.getItemQuantity(), total);
     }
 
-    private void hasUser(Long userId) {
+    private boolean hasUser(Long userId) {
         logger.info("Verificando se o usuário com ID {} existe", userId);
+        return httpClient.hasUsers(userId);
     }
-
 
     private void updateUpdatedAt(Order order) {
         order.setUpdatedAt(LocalDateTime.now());
         logger.info("Campo updatedAt setado para: {}", order.getUpdatedAt());
     }
 
+    private void processUseUpdate(Long id, Order existingOrder, OrderUpdateRequest orderUpdateRequest) {
+        if (!hasUser(Long.valueOf(orderUpdateRequest.getUserId()))) {
+            logger.error("Usuário com ID {} não encontrado", orderUpdateRequest.getUserId());
+            throw new EntityNotFoundException("Usuário não encontrado");
+        }
+
+        Long currentUserId = Long.valueOf(existingOrder.getUserId());
+        Long newUserId = Long.valueOf(orderUpdateRequest.getUserId());
+
+        if (!currentUserId.equals(newUserId)) {
+            logger.info("Mudança no userID detectada de {} para {}", currentUserId, newUserId);
+            hasUser(newUserId);
+        }
+
+        existingOrder.setItemPrice(orderUpdateRequest.getItemPrice());
+        existingOrder.setItemQuantity(orderUpdateRequest.getItemQuantity());
+        calculateTotal(existingOrder);
+
+        updateUpdatedAt(existingOrder);
+    }
 }
+
+
 
 
