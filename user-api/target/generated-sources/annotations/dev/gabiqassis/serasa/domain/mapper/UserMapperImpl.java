@@ -4,14 +4,15 @@ import dev.gabiqassis.serasa.domain.entity.User;
 import dev.gabiqassis.serasa.domain.request.UserCreaterRequest;
 import dev.gabiqassis.serasa.domain.request.UserUpdateRequest;
 import dev.gabiqassis.serasa.domain.response.UserResponse;
+import dev.gabiqassis.serasa.domain.response.UserUpdateResponse;
 import java.time.LocalDateTime;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-20T18:57:46-0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.1 (Oracle Corporation)"
+    date = "2025-01-07T13:19:59-0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.3 (Oracle Corporation)"
 )
 @Component
 public class UserMapperImpl implements UserMapper {
@@ -24,10 +25,10 @@ public class UserMapperImpl implements UserMapper {
 
         User user = new User();
 
-        user.setName( userCreateRequest.name() );
-        user.setCpf( userCreateRequest.cpf() );
-        user.setEmail( userCreateRequest.email() );
-        user.setPhoneNumber( userCreateRequest.phoneNumber() );
+        user.setCpf( userCreateRequest.getCpf() );
+        user.setName( userCreateRequest.getName() );
+        user.setEmail( userCreateRequest.getEmail() );
+        user.setPhoneNumber( userCreateRequest.getPhoneNumber() );
 
         return user;
     }
@@ -60,13 +61,24 @@ public class UserMapperImpl implements UserMapper {
     }
 
     @Override
+    public UserUpdateResponse mapToUpdate(User order) {
+        if ( order == null ) {
+            return null;
+        }
+
+        UserUpdateResponse userUpdateResponse = new UserUpdateResponse();
+
+        return userUpdateResponse;
+    }
+
+    @Override
     public void map(UserUpdateRequest userUpdateRequest, User user) {
         if ( userUpdateRequest == null ) {
             return;
         }
 
-        user.setName( userUpdateRequest.getName() );
         user.setCpf( userUpdateRequest.getCpf() );
+        user.setName( userUpdateRequest.getName() );
         user.setEmail( userUpdateRequest.getEmail() );
         user.setPhoneNumber( userUpdateRequest.getPhoneNumber() );
     }
