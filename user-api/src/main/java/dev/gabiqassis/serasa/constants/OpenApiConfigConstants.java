@@ -5,7 +5,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class OpenApiConfigConstants {
     public static final String OPENAPI_INFO_TITLE = "Microsserviço User-Api";
-    public static final String OPENAPI_INFO_VERSION = "0.0.3";
+    public static final String OPENAPI_INFO_VERSION = "0.0.4";
     public static final String OPENAPI_INFO_DESCRIPTION = "API do Serasa Consumidor Challenge - Gerenciamento de Usarios";
     public static final String OPENAPI_CONTACT_NAME = "Gabriela Queiroz";
     public static final String OPENAPI_CONTACT_EMAIL = "gabriela-amora@outlook.com";
