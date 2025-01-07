@@ -1,3 +1,40 @@
+version: '3.8'
+
+services:
+  mysql_db:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: order_db
+      MYSQL_USER: order_db
+      MYSQL_PASSWORD: order_db
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--host=localhost"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/order_db
+      SPRING_DATASOURCE_USERNAME: order_db
+      SPRING_DATASOURCE_PASSWORD: order_db
+      SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8081:8080"
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
 
 
 
