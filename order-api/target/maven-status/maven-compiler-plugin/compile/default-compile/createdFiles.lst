@@ -8,9 +8,11 @@ dev\gabiqassis\serasa\repository\OrderRepository.class
 dev\gabiqassis\serasa\domain\response\OrderResponse.class
 dev\gabiqassis\serasa\controller\impl\OrderControllerImpl.class
 dev\gabiqassis\serasa\domain\entity\Order.class
-dev\gabiqassis\serasa\domain\request\OrderCreateRequest.class
+dev\gabiqassis\serasa\config\openapi\OpenApiConfig.class
 dev\gabiqassis\serasa\config\web\WebConfig.class
 dev\gabiqassis\serasa\domain\request\OrderUpdateRequest.class
 dev\gabiqassis\serasa\constants\PathConstants.class
+dev\gabiqassis\serasa\domain\request\OrderCreaterRequest.class
 dev\gabiqassis\serasa\service\impl\OrderServiceImpl.class
 dev\gabiqassis\serasa\constants\OpenApiConfigConstants.class
+dev\gabiqassis\serasa\domain\response\OrderUpdateResponse.class

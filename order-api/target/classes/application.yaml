@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   datasource:
@@ -7,13 +7,14 @@ spring:
     username: order_db
     password: order_db
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
 
   sql:
     init:
@@ -23,10 +24,15 @@ spring:
     enabled: true
     locations: classpath:db/migration
 
-  openapi:
-    path: /swagger-ui.html
+springdoc:
+  swagger-ui:
+    enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
 
-logging:
-  level:
-    root: INFO
-    org.springframework: DEBUG
+openapi:
+  servers:
+    urls: http://localhost:${server.port}, http://127.0.0.1:${server.port}
+
+
