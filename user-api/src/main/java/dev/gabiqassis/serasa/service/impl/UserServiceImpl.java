@@ -17,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.List;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +38,10 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = "userCache", key = "#result.id"),
+            @CacheEvict(value = "userCache", key = "'userList'")
+    })
     public UserResponse create(UserCreaterRequest userCreaterRequest) {
         logger.info("Iniciando a criação de um novo usuário");
 
@@ -56,6 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "userCache", key = "#id")
     @Override
     public UserResponse findById(Long id) {
         logger.info("Iniciando busca pelo usuário com ID {}", id);
@@ -71,6 +78,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "userCache", key = "#id"),
+            @CacheEvict(value = "userCache", key = "'userList'")
+    })
     @Override
     public void deleteById(Long id) {
         logger.info("Iniciando remoção do usuário com ID: {}", id);
@@ -92,6 +103,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "userCache", key = "#id"),
+            @CacheEvict(value = "userCache", key = "'userList'")
+    })
     @Override
     public UserResponse update(Long id, UserUpdateRequest userUpdateRequest) {
         logger.info("Iniciando atualização do usuário com ID: {}", id);
@@ -119,6 +134,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "userCache", key = "'userList'")
     @Override
     public List<UserResponse> findAll() {
         logger.info("Iniciando busca por todos os usuários");
@@ -141,6 +157,4 @@ public class UserServiceImpl implements UserService {
 
         return httpClient.hasOrders(String.valueOf(id));
     }
-
 }
-
