@@ -1,5 +1,7 @@
-C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\client\HttpClientOrder.java
+C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\client\exception\OrderServiceException.java
+C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\client\OrderHttpClient.java
 C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\config\openapi\OpenApiConfig.java
+C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\config\RedisConfig.java
 C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\config\web\WebConfig.java
 C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\constants\OpenApiConfigConstants.java
 C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\constants\PathConstants.java
@@ -13,7 +15,6 @@ C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\domain\
 C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\domain\response\UserResponse.java
 C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\domain\response\UserUpdateResponse.java
 C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\domain\util\Validation.java
-C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\model\Order.java
 C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\repository\UserRepository.java
 C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\service\impl\UserServiceImpl.java
 C:\Projetos\serasa_challeng\user-api\src\main\java\dev\gabiqassis\serasa\service\UserService.java
