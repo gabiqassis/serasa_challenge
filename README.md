@@ -1,4 +1,4 @@
-# Library Challenge API
+# Serasa Challenge API
 
 API RESTful desenvolvida para o desafio técnico do Serasa, hospedando um sistema de gestão de pedidos e usuários. A aplicação foi construída em Java 21 e utiliza Docker para gerenciar os containers necessários.
 
@@ -19,8 +19,8 @@ A Library Challenge API oferece as seguintes funcionalidades:
 
 A API está dividida em dois serviços principais:
 
-- **Serviço de Pedidos** (porta 8081)
-- **Serviço de Usuários** (porta 8083)
+- **Serviço de Pedidos** (porta 8080)
+- **Serviço de Usuários** (porta 8082)
 
 ## Requisitos
 
