@@ -1,6 +1,6 @@
-# Serasa Challenge API
+# OrderTrack API
 
-API RESTful desenvolvida para o desafio técnico do Serasa, hospedando um sistema de gestão de pedidos e usuários. A aplicação foi construída em Java 21 e utiliza Docker para gerenciar os containers necessários.
+API RESTful desenvolvida para o desafio técnico, hospedando um sistema de gestão de pedidos e usuários. A aplicação foi construída em Java 21 e utiliza Docker para gerenciar os containers necessários.
 
 ## Sumário
 
